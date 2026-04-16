@@ -1,0 +1,77 @@
+@model ImageUploadMVC
+
+@{
+    ViewData["Title"] = "Upload Image";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0"><i class="bi bi-cloud-upload"></i> Upload New Image</h4>
+            </div>
+            <div class="card-body">
+                <form asp-action="Upload" method="post" enctype="multipart/form-data">
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                    
+                    <div class="mb-3">
+                        <label asp-for="Name" class="form-label"></label>
+                        <input asp-for="Name" class="form-control" placeholder="Enter your name" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Age" class="form-label"></label>
+                        <input asp-for="Age" class="form-control" type="number" placeholder="Enter your age" />
+                        <span asp-validation-for="Age" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Dob" class="form-label"></label>
+                        <input asp-for="Dob" class="form-control" type="date" />
+                        <span asp-validation-for="Dob" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="imageFile" class="form-label">Select Image</label>
+                        <input type="file" class="form-control" id="imageFile" name="imageFile" accept="image/*" required />
+                        <span asp-validation-for="ImageFileName" class="text-danger"></span>
+                        <div class="form-text">Allowed formats: JPG, JPEG, PNG, GIF, BMP</div>
+                    </div>
+
+                    <div class="mb-3 text-center">
+                        <img id="imagePreview" src="#" alt="Preview" class="img-fluid rounded" style="display:none; max-height: 350px; box-shadow: 0 8px 30px rgba(0,0,0,.2); border-radius: 15px;" />
+                    </div>
+
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary btn-lg">
+                            <i class="bi bi-cloud-upload-fill"></i> Upload Image
+                        </button>
+                        <a asp-action="List" class="btn btn-secondary">
+                            <i class="bi bi-grid-3x3-gap"></i> View Gallery
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        document.getElementById('imageFile').onchange = function (evt) {
+            var tgt = evt.target || window.event.srcElement,
+                files = tgt.files;
+
+            if (FileReader && files && files.length) {
+                var fr = new FileReader();
+                fr.onload = function () {
+                    document.getElementById('imagePreview').src = fr.result;
+                    document.getElementById('imagePreview').style.display = 'block';
+                }
+                fr.readAsDataURL(files[0]);
+            }
+        }
+    </script>
+}
