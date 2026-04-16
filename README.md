@@ -1,7 +1,3 @@
-# Image Management Web Application
-
-ASP.NET Core MVC application for uploading, displaying, and managing images with user details.
-
 ## Setup Instructions
 
 ### Prerequisites
@@ -40,16 +36,12 @@ dotnet run
 - View all uploaded images in gallery
 - Display individual image details
 - Delete images from database and storage
-- Modern UI with gradient design
-- Form validation and error handling
 
 ## Technologies
-
 - ASP.NET Core 10.0 MVC
 - Entity Framework Core 10.0
 - SQLite Database
 - Bootstrap 5.3
 
 ## Supported Image Formats
-
 JPG, JPEG, PNG, GIF, BMP, WEBP
